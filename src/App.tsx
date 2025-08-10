@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
+type Player = {
+  id: number;
+  name: string;
+  image: string | null;
+  guessed: number;
+  attempted: number;
+  score: number;
+};
 
 export default function App() {
-  const defaultPlayers = [
+  const defaultPlayers: Player[] = [
     { id: 1, name: "Michele D. 🧪", image: null, guessed: 0, attempted: 0, score: 0 },
     { id: 2, name: "Steven 🤡", image: null, guessed: 0, attempted: 0, score: 0 },
     { id: 3, name: "Giacomo 😴", image: null, guessed: 0, attempted: 0, score: 0 },
@@ -12,11 +21,11 @@ export default function App() {
     { id: 8, name: "Veronica 💅", image: null, guessed: 0, attempted: 0, score: 0 },
   ];
 
-  const [players, setPlayers] = useState(defaultPlayers);
-  const [showOptions, setShowOptions] = useState(null);
-  const [newPlayerName, setNewPlayerName] = useState("");
+  const [players, setPlayers] = useState<Player[]>(defaultPlayers);
+  const [showOptions, setShowOptions] = useState<number | null>(null);
+  const [newPlayerName, setNewPlayerName] = useState<string>("");
 
-  function updateScore(playerId, guessedIncrement, scoreIncrement) {
+  function updateScore(playerId: number, guessedIncrement: number, scoreIncrement: number) {
     setPlayers((prev) =>
       prev.map((p) => {
         if (p.id === playerId) {
@@ -34,7 +43,7 @@ export default function App() {
     setShowOptions(null);
   }
 
-  function markNotGuessed(playerId) {
+  function markNotGuessed(playerId: number) {
     setPlayers((prev) =>
       prev.map((p) =>
         p.id === playerId
@@ -44,7 +53,7 @@ export default function App() {
     );
   }
 
-  function resetPlayer(playerId) {
+  function resetPlayer(playerId: number) {
     setPlayers((prev) =>
       prev.map((p) =>
         p.id === playerId ? { ...p, guessed: 0, attempted: 0, score: 0 } : p
@@ -62,7 +71,7 @@ export default function App() {
     setNewPlayerName("");
   }
 
-  function removePlayer(playerId) {
+  function removePlayer(playerId: number) {
     setPlayers((prev) => prev.filter((p) => p.id !== playerId));
     if (showOptions === playerId) setShowOptions(null);
   }
@@ -178,3 +187,4 @@ export default function App() {
     </div>
   );
 }
+
